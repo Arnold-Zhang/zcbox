@@ -11,7 +11,7 @@
 	<!--{/if}-->
 	 {eval unset($_SESSION['msg']);}
 <!--{/if}-->
-<!--{if !$visit}-->
+<!--{if $visit}-->
 	<!--{template zcbox:common/board}-->
 <!--{elseif !isset($name) || !isset($company)}-->
 	<!--{template zcbox:user/register}-->

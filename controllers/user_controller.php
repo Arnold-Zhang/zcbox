@@ -21,7 +21,7 @@ switch ($act) {
 			$rs = C::t("#zcbox#zcbox_user")->update($uid, $data);
 		}
 
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 		break;
 
 	case 'value':

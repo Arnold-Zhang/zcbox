@@ -26,7 +26,7 @@ switch ($act) {
 			$rs = C::t("#zcbox#zcbox_tip")->insert($data);
 		}
 
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 		break;
 
 	case 'destroy':
@@ -37,7 +37,7 @@ switch ($act) {
 		}else{
 			$rs = C::t("#zcbox#zcbox_tip")->destroy_tip($tid);
 		}
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 		break;
 
 	case 'score':
@@ -53,36 +53,9 @@ switch ($act) {
 					'status'	=>	$score,
 				];
 				$rs = C::t("#zcbox#zcbox_tip")->update($tid, $data);
-
-				// if ($score != 6) {
-				//
-				// 	$reward_status = C::t("#zcbox#zcbox_tip")->getField($tid, 'rewarded');
-				//
-				// 	if (!$reward_status) {
-				//
-				// 		$reward = $TIP_STATUS[$score];
-				// 		$reward_user = C::t("#zcbox#zcbox_tip")->getField($tid, 'uid');
-				// 		$reward_openid = C::t("#zcbox#zcbox_user")->getField($reward_user, 'openid');
-				// 		$rewarded = Weixin::sendLuckyMoney($reward_openid, $reward['value']*100);
-				//
-				// 		if ($rewarded['result_code'] == 'SUCCESS') {
-				// 			$send_reward = C::t("#zcbox#zcbox_tip")->update($tid, ['rewarded' => 1]);
-				// 			$_SESSION['msg']['success'] = $rewarded['return_msg'];
-				// 			LOG::DEBUG('tip id:' . $tid . ' rewarded success.');
-				// 		}else {
-				// 			$_SESSION['msg']['error'] = $rewarded['return_msg'];
-				// 			LOG::DEBUG('tip id:' . $tid . ' rewarded fail.');
-				// 		}
-				//
-				// 	}
-				// }elseif ($score == 6) {
-				// 	$rs = C::t("#zcbox#zcbox_tip")->update($tid, $data);
-				// 	$send_reward = C::t("#zcbox#zcbox_tip")->update($tid, ['rewarded' => 1]);
-				// 	LOG::DEBUG('tip id:' . $tid . ' has readed.');
-				// }
 			}
 		}
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 		break;
 
 	case 'reward':
@@ -121,7 +94,7 @@ switch ($act) {
 			}
 		}
 
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 
 		break;
 
@@ -140,7 +113,7 @@ switch ($act) {
 			}
 		}
 
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 
 		break;
 
@@ -154,7 +127,7 @@ switch ($act) {
 			LOG::DEBUG("user " . $uid . " delete tip reply, tid: " . $tid);
 		}
 
-		dheader('location:index.php?visit=1&uid=' . $uid);
+		dheader('location:index.php?&uid=' . $uid);
 		break;
 
 	default:
