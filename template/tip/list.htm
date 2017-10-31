@@ -6,20 +6,20 @@
 	  </button>
 	  <ul class="dropdown-menu">
 		  <li>
-			  <a href="index.php?visit=1&uid={$uid}&status=all">
+			  <a href="index.php?&uid={$uid}&status=all">
 			  全部意见
 			  </a>
 		  </li>
 		<!--{loop $TIP_STATUS $n $tip_status}-->
 			<li>
-				<a href="index.php?visit=1&uid={$uid}&status={$n}">
+				<a href="index.php?&uid={$uid}&status={$n}">
 				{$tip_status}意见
 				</a>
 			</li>
 		<!--{/loop}-->
 		<!--{if $is_admin}-->
 			<li>
-				<a href="index.php?visit=1&uid={$uid}&rewarded=1">已奖励</a>
+				<a href="index.php?&uid={$uid}&rewarded=1">已奖励</a>
 			</li>
 			<!--{/if}-->
 	  </ul>
@@ -43,7 +43,7 @@
   					  <ul class="dropdown-menu">
   					  	<!--{loop $TIP_STATUS $n $tip_status}-->
   					  		<li>
-  					  			<a href="index.php?visit=1&mod=tip&act=score&tid={$tip['id']}&uid={$uid}&score={$n}">
+  					  			<a href="index.php?&mod=tip&act=score&tid={$tip['id']}&uid={$uid}&score={$n}">
   					  			$tip_status
   					  			</a>
   					  		</li>
