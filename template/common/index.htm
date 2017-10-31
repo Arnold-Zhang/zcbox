@@ -1,0 +1,21 @@
+<!--{template zcbox:common/header}-->
+<div class="page-header">
+	<h4>总裁意见箱</h4>
+</div>
+<!--{if $_SESSION['msg']}-->
+	<!--{if $_SESSION['msg']['error']}-->
+		<div class="alert alert-danger" role="alert">{$_SESSION['msg']['error']}</div>
+	<!--{/if}-->
+	<!--{if $_SESSION['msg']['success']}-->
+		<div class="alert alert-success" role="alert">{$_SESSION['msg']['success']}</div>
+	<!--{/if}-->
+	 {eval unset($_SESSION['msg']);}
+<!--{/if}-->
+<!--{if !$visit}-->
+	<!--{template zcbox:common/board}-->
+<!--{elseif !isset($name) || !isset($company)}-->
+	<!--{template zcbox:user/register}-->
+<!--{else}-->
+	<!--{template zcbox:tip/list}-->
+<!--{/if}-->
+<!--{template zcbox:common/footer}-->

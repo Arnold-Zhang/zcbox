@@ -1,0 +1,16 @@
+{
+    "name": "zcbox",
+    "description": "model",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Arnold",
+            "email": "arnold_zhang@ixiangyun.me"
+        }
+    ],
+	"autoload":{
+		"classmap":[
+			"model"
+		]
+	}
+}

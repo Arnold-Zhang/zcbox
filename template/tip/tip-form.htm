@@ -1,0 +1,15 @@
+<div class="tip-form">
+		<form action="index.php" method="POST">
+		  <input type="hidden" name="act" value="store">
+		  <input type="hidden" name="mod" value="tip">
+		  <input type="hidden" name="uid" value="{$uid}">
+		  <textarea class="form-control" rows="2" placeholder="反馈问题" name="title">{$_SESSION['advice']['title']}</textarea>
+		  <br />
+		  <textarea class="form-control" rows="3" placeholder="改进意见" name="content">{$_SESSION['advice']['content']}</textarea>
+		  <br />
+		  <textarea class="form-control" rows="1" placeholder="联系方式（选填）" name="note">{$_SESSION['advice']['note']}</textarea>
+		  <br />
+		  {eval unset($_SESSION['advice']);}
+		  <button type="submit" class="btn btn-primary">提交</button>
+		</form>
+</div>

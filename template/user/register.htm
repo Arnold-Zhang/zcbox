@@ -1,0 +1,13 @@
+<form action="index.php" method="POST">
+	<input type="hidden" name="act" value="update">
+	<input type="hidden" name="mod" value="user">
+	<input type="hidden" name="uid" value="{$uid}">
+	<div class="form-group">
+	<label>用户名：</label>
+	<input class="form-control" name="name" type="text" placeholder="用户名不可更改" value="{$_SESSION['register']['name']}">
+	<br />
+	<input class="form-control" name="company" type="text" placeholder="所在公司名称" value="{$_SESSION['register']['company']}">
+	</div>
+	{eval unset($_SESSION['register']);}
+	<button type="submit" class="btn btn-primary">提交</button>
+</form>

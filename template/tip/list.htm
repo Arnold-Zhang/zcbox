@@ -1,0 +1,115 @@
+<!--{template zcbox:tip/tip-form}-->
+<ul class="tips">
+	<div class="btn-group pull-right" style="margin-bottom:10px;">
+	  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		{eval echo isset($is_rewarded) ? '已奖励' : (isset($status) && $status != 'all' ? $TIP_STATUS[$status] : "全部")}意见 <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu">
+		  <li>
+			  <a href="index.php?visit=1&uid={$uid}&status=all">
+			  全部意见
+			  </a>
+		  </li>
+		<!--{loop $TIP_STATUS $n $tip_status}-->
+			<li>
+				<a href="index.php?visit=1&uid={$uid}&status={$n}">
+				{$tip_status}意见
+				</a>
+			</li>
+		<!--{/loop}-->
+		<!--{if $is_admin}-->
+			<li>
+				<a href="index.php?visit=1&uid={$uid}&rewarded=1">已奖励</a>
+			</li>
+			<!--{/if}-->
+	  </ul>
+	</div>
+	<div class="clearfix"></div>
+	<!--{loop $tips $tip}-->
+		<li id="{$tip['id']}" class="tips-list">
+		  <span class="user">
+		    {eval $tip_user = C::t("#zcbox#zcbox_user")->where(['id'=>$tip['uid']])->first();}
+		    {$tip_user['name']}
+		    <!--{if $tip['rewarded']}-->
+		    <span class="glyphicon glyphicon-ok" style="color:#228B22;"></span>
+		    <!--{/if}-->
+			<div class="clearfix"></div>
+			<span class="pull-right status">
+  			  	<!--{if $is_admin}-->
+  					<div class="btn-group">
+  					  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {echo $tip['status'] == 2 ? "style='color: red'" : ($tip['status'] == 1 ? "style='color: green'" : "")}>
+  					    $TIP_STATUS[$tip['status']] <span class="caret"></span>
+  					  </button>
+  					  <ul class="dropdown-menu">
+  					  	<!--{loop $TIP_STATUS $n $tip_status}-->
+  					  		<li>
+  					  			<a href="index.php?visit=1&mod=tip&act=score&tid={$tip['id']}&uid={$uid}&score={$n}">
+  					  			$tip_status
+  					  			</a>
+  					  		</li>
+  			  			<!--{/loop}-->
+  					  </ul>
+  					</div>
+  				<!--{else}-->
+  				<span>$TIP_STATUS[$tip['status']]</span>
+  				<!--{/if}-->
+  		    </span>
+		  </span>
+
+		  <span class="pull-left "style="display:block;">{$tip_user['company']}</span>
+		  <div class="clearfix"></div>
+
+		  <span class="content">{$tip['title']}</span>
+		  <span class="content">{$tip['content']}</span>
+		  <span class="content">{$tip['note']}</span>
+		  {eval $tip_reply = C::t("#zcbox#zcbox_tip")->getField($tip['id'], 'reply');}
+		  <!--{if $tip_reply}-->
+		  <span class="tip-reply" style="color:red;">回复：<b>{$tip_reply}</b></span>
+		  <!--{/if}-->
+		  <div></div>
+		  <span class="timestamp">
+		    {$tip['create_time']}
+		  </span>
+		  <div class="clearfix"></div>
+		  <!--{if $is_super_admin}-->
+	  		<div class="reward pull-left">
+	  			<form action="index.php">
+	  				<input type="hidden" name="act" value="reward">
+	  				<input type="hidden" name="mod" value="tip">
+	  				<input type="hidden" name="uid" value="{$uid}">
+	  				<input type="hidden" name="tid" value="{$tip['id']}">
+	  				<input type="text" class="form-control" name="money" style="width:75px;display:inline;" placeholder="金额">元
+	  				<button class="btn btn-default btn-sm">奖励</button>
+	  			</form>
+	  		</div>
+	  		<!--{/if}-->
+		  {eval $can_delete = $user->can_delete($uid, $tip['id']);}
+		  <span class="pull-right control">
+			  <div class="btn-group">
+				<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  操作<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+				  <!--{if $can_delete}-->
+				  	<li>
+					  <a href="index.php?act=destroy&mod=tip&tid={$tip['id']}&uid={$uid}">删除</a>
+				  	</li>
+				<!--{/if}-->
+				<!--{if $is_admin}-->
+				<li>
+					<a href="index.php?act=reply&mod=tip&tid={$tip['id']}&uid={$uid}">回复</a>
+				</li>
+				<!--{if $tip_reply}-->
+				<li>
+					<a href="index.php?act=delete_reply&mod=tip&tid={$tip['id']}&uid={$uid}">删除回复</a>
+				</li>
+				<!--{/if}-->
+				</ul>
+				<!--{/if}-->
+			  </div>
+		  </span>
+		</li>
+		<div class="clearfix"></div>
+	<!--{/loop}-->
+</ul>
+{$pagehtm}

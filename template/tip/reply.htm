@@ -1,0 +1,26 @@
+<!--{template zcbox:common/header}-->
+<div class="page-header">
+	<h4>意见回复</h4>
+</div>
+<!--{if $_SESSION['msg']}-->
+	<!--{if $_SESSION['msg']['error']}-->
+		<div class="alert alert-danger" role="alert">{$_SESSION['msg']['error']}</div>
+	<!--{/if}-->
+	<!--{if $_SESSION['msg']['success']}-->
+		<div class="alert alert-success" role="alert">{$_SESSION['msg']['success']}</div>
+	<!--{/if}-->
+	 {eval unset($_SESSION['msg']);}
+<!--{/if}-->
+<div class="tip-reply">
+		<form action="index.php" method="POST">
+		  <input type="hidden" name="act" value="reply">
+		  <input type="hidden" name="mod" value="tip">
+		  <input type="hidden" name="uid" value="{$uid}">
+		  <input type="hidden" name="tid" value="{$tid}">
+		  <textarea class="form-control" rows="2" placeholder="对该条意见回复" name="reply">{$_SESSION['reply']}</textarea>
+		  <br />
+		  {eval unset($_SESSION['reply']);}
+		  <button type="submit" class="btn btn-primary">回复</button>
+		</form>
+</div>
+<!--{template zcbox:common/footer}-->
