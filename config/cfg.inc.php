@@ -8,9 +8,9 @@ if(file_exists(__DIR__ . "/../.env"))
 
 define("APP_NAME", "总裁意见箱");
 define("DATA_DIR", __DIR__ . '/..');
-define("SERVER_IP", "");
 define( "RECORD_LIMIT_PER_PAGE", 10 );
 
+define("SERVER_IP", "");
 // 微信相关设置
 define("APPID" , "weixin appid");
 define("APP_SECRET", "weixin app secret");
