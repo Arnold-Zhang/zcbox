@@ -4,10 +4,10 @@
 该意见箱基于 Discuz!X3.4 、以独立插件的形式开发的一个简易意见箱（总裁意见箱），借助微信公众号通过微信登陆。除了对意见进行回复、分级操作意外，还可以对好意见进行发送微信红包奖励（涉及微信支付平台）。最初是用于公司内部来进行企业意见管理以及为意见发放奖励。
 
 ## 安装
-* 搭好 Discuz!X3.4 环境，将项目放在 * discuz/source/plugin * 下，将 apache 或是其他部署工具部署到 * discuz/source/plugin/zcbox * 位置；
+* 搭好 Discuz!X3.4 环境，将项目放在 *discuz/source/plugin* 下，将 apache 或是其他部署工具部署到 *discuz/source/plugin/zcbox* 位置；
 * 进入 *zcbox* 目录，执行 `cp .env.example .env` 操作，复制一份 .env 文件，并按文件内注释做好相关配置。
 * 正式服需要通过微信进入页面来使用，测试服（.env 里面可配置）可以通过手动传 **uid** 参数进行访问；
-* 在 * task/setAdmin.php * 文件中输入要设置成管理员的用户名，然后执行 `php task/setAdmin.php` 进行设置，unsetAdmin.php 则是取消相应管理员（超级管理员拥有发奖励的权限、普通管理员只能对意见进行删除、回复、分级等操作）；
+* 在 *task/setAdmin.php* 文件中输入要设置成管理员的用户名，然后执行 `php task/setAdmin.php` 进行设置，unsetAdmin.php 则是取消相应管理员（超级管理员拥有发奖励的权限、普通管理员只能对意见进行删除、回复、分级等操作）；
 
 ## 使用
 * 进入首页需先设置用户名和公司名后，才能使用；
