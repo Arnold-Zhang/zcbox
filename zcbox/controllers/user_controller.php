@@ -17,11 +17,17 @@ switch ($act) {
 				'name'	=>	$name,
 				'company'	=>	$company,
 			];
-
-			$rs = C::t("#zcbox#zcbox_user")->update($uid, $data);
+			$is_exist = C::t("#zcbox#zcbox_user")->where(['name' => $data['name']])->count();
+			if ($is_exist) {
+				$_SESSION['msg']['error'] = "用户名已存在";
+				$_SESSION['register']['name'] = $name;
+				$_SESSION['register']['company'] = $company;
+			}else{
+				$rs = C::t("#zcbox#zcbox_user")->update($uid, $data);
+			}
 		}
 
-		dheader('location:index.php?&uid=' . $uid);
+		dheader('location:index.php?visit=1&uid=' . $uid);
 		break;
 
 	case 'value':

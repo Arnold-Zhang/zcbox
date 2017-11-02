@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `box_zcbox_user` (
     `role` int(2) NOT NULL DEFAULT 0 COMMENT '用户角色',
     `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '用户注册时间',
     PRIMARY KEY (`id`),
+    UNIQUE KEY `name` (`name`),
     KEY `openid` (`openid`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
