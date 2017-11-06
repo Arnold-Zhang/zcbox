@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `box_zcbox_tip` (
 	`reply` text NOT NULL comment '回复',
 	`status` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '意见状态',
     `rewarded` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '奖励状态',
+	`money` int(10) unsigned NOT NULL comment '奖励金额', 
     `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '意见创建时间',
     PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
