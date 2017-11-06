@@ -69,18 +69,22 @@ switch ($act) {
 			$status = C::t("#zcbox#zcbox_tip")->getField($tid, 'status');
 			$reward_status = C::t("#zcbox#zcbox_tip")->getField($tid, 'rewarded');
 
-			if ($status != 1) {
+			if ($status == 2) {
 				$_SESSION['msg']['error'] = "这是一条无效建议";
 			}else {
 				if (!$reward_status) {
 
 					$reward_user = C::t("#zcbox#zcbox_tip")->getField($tid, 'uid');
 					$reward_openid = C::t("#zcbox#zcbox_user")->getField($reward_user, 'openid');
-					$rewarded = Weixin::sendLuckyMoney($reward_openid, $reward['value']*100);
+					$rewarded = Weixin::sendLuckyMoney($reward_openid, $reward*100);
 					LOG::DEBUG('userid:' . $uid . ', username: ' . $user->name($uid) . ' send reward');
 
 					if ($rewarded['result_code'] == 'SUCCESS') {
 						$send_reward = C::t("#zcbox#zcbox_tip")->update($tid, ['rewarded' => 1]);
+						$money_reward = C::t("#zcbox#zcbox_tip")->update($tid, ['money' => $reward]);
+						if ($status == 0) {
+							C::t("#zcbox#zcbox_tip")->update($tid, ['status' => 1]);
+						}
 						$_SESSION['msg']['success'] = $rewarded['return_msg'];
 						LOG::DEBUG('tip id:' . $tid . ' rewarded success.');
 					}else {

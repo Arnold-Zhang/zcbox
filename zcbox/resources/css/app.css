@@ -40,3 +40,15 @@ li {
 .tips .control {
 	margin-top: 6px;
 }
+
+#rewarded-money {
+  text-align: center;
+  margin: 0px;
+  position: absolute;
+  z-index: 100;
+  top: 30%;
+  opacity: 0.5;
+  font-size: 300%;
+  color: red;
+  -webkit-transform:rotate(-30deg);
+}
