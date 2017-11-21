@@ -195,6 +195,37 @@ class Weixin
 
 	}
 
+	private static function updateAccessToken () {
+		$api = "https://api.weixin.qq.com/cgi-bin/token";
+
+		$data = [
+			'grant_type'	=>	'client_credential',
+			'appid'			=>	APPID,
+			'secret'		=>	APP_SECRET,
+		];
+
+		$wecurl = new sCurl( $api, 'GET', $data );
+
+		$ret = json_decode( $wecurl->sendRequest(), true );
+		$ret['timestamp'] = time();
+		$rs = C::t("common_setting")->update("zcbox_wxaccesstoken", $ret);
+		if ($rs) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static function _updateAccessToken(){
+		return self::updateAccessToken();
+	}
+
+	private static function getAccessToken(){
+	$rs = C::t("common_setting")->fetch("zcbox_wxaccesstoken");
+	$accessToken = unserialize($rs)['access_token'];
+	return $accessToken;
+	}
+
 	public static function valid($isfirsttime = false) {
 		$echoStr = $_GET["echostr"];
 
@@ -321,5 +352,25 @@ class Weixin
 			curl_close($ch);
 			Log::ERROR("curl出错，错误码:$error");
 		}
+	}
+
+	public function sendReplyMsg($openid, $reply, $tip_data) {
+		$wxAccessToken = self::getAccessToken();
+		$api = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $wxAccessToken;
+		$color = "#000000";
+		$data = [
+			"touser" => $openid,
+			"template_id" => WX_REPLY_TEMPLATE,
+			"url" => HOME_URL,
+			"data" => [
+				"first" => ["value" => "您好，您的意见已被回复", "color" => $color],
+				"keyword1" => ["value" => $tip_data['tip_time'], "color" => $color],
+				"keyword2" => ["value" => $tip_data['content'], "color" => $color],
+				"remark" => ["value" =>"回复内容： " . $reply, "color" => "#009B4C"]
+			]
+		];
+		// echo 111111;exit;
+		$wxcurl = new sCurl( $api, 'POST', json_encode($data), [CURLOPT_TIMEOUT=>5] ); // timeout 5s
+		return json_decode( $wxcurl->sendRequest(), 1 );
 	}
 }

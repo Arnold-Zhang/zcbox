@@ -13,4 +13,5 @@ return array(
     'Weixin' => $baseDir . '/model/Weixin.php',
     'WxPayDataBase' => $baseDir . '/model/Weixin.php',
     'WxPayResults' => $baseDir . '/model/Weixin.php',
+    'sCurl' => $baseDir . '/model/Scurl.php',
 );

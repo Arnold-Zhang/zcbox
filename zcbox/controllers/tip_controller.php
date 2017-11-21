@@ -111,6 +111,20 @@ switch ($act) {
 			$tid = trim($_GET['tid']);
 			if (isset($reply) && $reply != '') {
 				$rs = C::t("#zcbox#zcbox_tip")->update($tid, ['reply' => $reply]);
+
+				$tip_user = C::t("#zcbox#zcbox_tip")->getField($tid, 'uid');
+				$tip_data = C::t("#zcbox#zcbox_tip")->select("title as content, create_time as tip_time")->where(['id' => $tid])->first();
+				$tip_openid = C::t("#zcbox#zcbox_user")->getField($tip_user, 'openid');
+				$reply_msg = Weixin::sendReplyMsg($tip_openid, $reply, $tip_data);
+
+				// 返回码识别
+				if ($reply_msg['errcode'] == 43004) {
+					$_SESSION['msg']['error'] = "需要接收者关注公众号";
+				}elseif ($reply_msg['errcode'] == 0) {
+					$_SESSION['msg']['success'] = "回复提醒已发送至用户微信";
+				}
+
+				LOG::DEBUG("sendReplyMsg:" . print_r($reply_msg,true));
 			}else{
 				include template('zcbox:tip/reply');
 				exit;

@@ -14,6 +14,7 @@ class ComposerStaticInit3cc38fa8ff15d95412590c0e04b6ff8e
         'Weixin' => __DIR__ . '/../..' . '/model/Weixin.php',
         'WxPayDataBase' => __DIR__ . '/../..' . '/model/Weixin.php',
         'WxPayResults' => __DIR__ . '/../..' . '/model/Weixin.php',
+        'sCurl' => __DIR__ . '/../..' . '/model/Scurl.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
